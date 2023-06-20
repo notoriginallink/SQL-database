@@ -1,0 +1,10 @@
+CREATE TABLE name (id int, name varchar(20), score double, PRIMARY KEY (id));
+INSERT INTO name (id, name, score) VALUES (1, 'danil', 10.0), (2, 'vlad', 9.3), (3, 'egor', 11.7);
+INSERT INTO name VALUES (4, 'danya', 5.0), (5, 'lad', 19.3), (6, 'gor', 13.7);
+SELECT * FROM name WHERE score > 10;
+
+
+CREATE TABLE t1 (id int, name varchar, zone int, PRIMARY KEY (id));
+CREATE TABLE t2 (id int, zone_name varchar, PRIMARY KEY (id));
+INSERT INTO t1 (id, name, zone) VALUES (1, 'Danil', 1), (2, 'Alex', 2), (3, 'Evgen', 1), (4, 'Leha', 3), (5, 'Ron', 4), (6, 'Joe', 2);
+INSERT INTO t2 VALUES (1, 'Kitchen'), (2, 'Bathroom'), (3, 'Bedroom');

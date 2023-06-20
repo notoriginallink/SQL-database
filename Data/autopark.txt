@@ -1,0 +1,37 @@
+3
+autopark
+7
+int id
+int year
+double mileage_km
+int car_brand_id
+int color_id
+double price_usd
+varchar owner_name
+1 0
+3
+1 2010 400000 1 1 15500 'Roman' 
+2 2011 335000 2 1 5000 'Alex' 
+3 2015 98500 1 2 7500 'Dmitry' 
+car_brands
+2
+int id
+varchar brand
+1 0
+5
+1 'Nissan' 
+2 'Lada' 
+3 'Audi' 
+4 'BMW' 
+5 'Wolkswagen' 
+car_colors
+2
+int id
+varchar color
+1 0
+5
+1 'Black' 
+2 'White' 
+3 'Red' 
+4 'Blue' 
+5 'Grey' 
