@@ -65,31 +65,29 @@ void CoolDB::load_from_file(const std::string& path) {
             Row ins;
             for (size_t k = 0; k < number_of_columns; ++k) {
                 std::string temp;
-                switch (table->get_types()[k]) {
-                    case kTypeId::INT:
-                        file >> temp;
-                        ins.push_back(string_to_tablevar(temp, kTypeId::INT));
-                        break;
-                    case kTypeId::FLOAT:
-                        file >> temp;
-                        ins.push_back(string_to_tablevar(temp, kTypeId::FLOAT));
-                        break;
-                    case kTypeId::DOUBLE:
-                        file >> temp;
-                        ins.push_back(string_to_tablevar(temp, kTypeId::DOUBLE));
-                        break;
-                    case kTypeId::BOOL:
-                        file >> temp;
-                        ins.push_back(string_to_tablevar(temp, kTypeId::BOOL));
-                        break;
-                    case kTypeId::STRING:
-                        file >> temp;
-                        ins.push_back(std::string{temp.cbegin() + 1, temp.cend() - 1});
-                        break;
-                    case kTypeId::NULLOBJ:
-                        file >> temp;
-                        ins.push_back(Null());
-                }
+                file >> temp;
+                if (temp != "NULL")
+                    switch (table->get_types()[k]) {
+                        case kTypeId::INT:
+                            ins.push_back(string_to_tablevar(temp, kTypeId::INT));
+                            break;
+                        case kTypeId::FLOAT:
+                            ins.push_back(string_to_tablevar(temp, kTypeId::FLOAT));
+                            break;
+                        case kTypeId::DOUBLE:
+                            ins.push_back(string_to_tablevar(temp, kTypeId::DOUBLE));
+                            break;
+                        case kTypeId::BOOL:
+                            ins.push_back(string_to_tablevar(temp, kTypeId::BOOL));
+                            break;
+                        case kTypeId::STRING:
+                            ins.push_back(std::string{temp.cbegin() + 1, temp.cend() - 1});
+                            break;
+                        case kTypeId::NULLOBJ:
+                            ins.push_back(Null());
+                    }
+                else
+                    ins.push_back(Null());
             }
             table->insert_row(ins);
         }
@@ -152,9 +150,9 @@ void CoolDB::save_to_file(const std::string& path) {
                                 file << std::get<bool>(row[i]) << ' ';
                             } catch (const std::bad_variant_access& e) {
                                 try {
-                                    file << '\'' << std::get<std::string>(row[i]) << '\'' << ' ';
-                                } catch (const std::bad_variant_access& e) {
                                     file << std::get<Null>(row[i]) << ' ';
+                                } catch (const std::bad_variant_access& e) {
+                                    file << '\'' << std::get<std::string>(row[i]) << '\'' << ' ';
                                 }
                             }
                         }
